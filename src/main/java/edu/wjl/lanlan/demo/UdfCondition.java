@@ -8,23 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author junli wang
- * @date 18-9-16
+ * 创建udf
  */
-
-public class ConditionFunction extends UDF {
-
+public class UdfCondition extends UDF {
 
     public static String splitStr = ";";
 
-    /**
-     * 根据参数获取参数标签
-     *
-     * @param str
-     * @return
-     */
-    public String getTags(String str) {
-
+    // TODO define parameters and return type, e.g:  public String evaluate(String a, String b)
+    public String evaluate(String str) {
         String[] split = str.split(",");
         FilterCondition filterCondition;
         try {
@@ -41,7 +32,6 @@ public class ConditionFunction extends UDF {
         List tagList = getTagList(filterCondition);
         return str + splitStr + tagList.toString();
     }
-
 
     /**
      * 根据filterCondition对象获取tagList
@@ -65,9 +55,10 @@ public class ConditionFunction extends UDF {
         return tagList;
     }
 
+
     public static void main(String[] args) {
-        ConditionFunction conditionFunction = new ConditionFunction();
-        String tags = conditionFunction.getTags("36,有房,1,/,/");
+        UdfCondition conditionFunction = new UdfCondition();
+        String tags = conditionFunction.evaluate("36,有房,1,/,/");
         System.out.println(tags);
     }
 }
